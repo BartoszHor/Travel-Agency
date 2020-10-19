@@ -5,19 +5,30 @@ import styles from './TripListOptions.scss';
 import {Row, Col} from 'react-flexbox-grid';
 
 class TripListOptions extends React.Component {
+
+  static propTypes = {
+    trips: PropTypes.array,
+    addTag: PropTypes.func,
+    removeTag: PropTypes.func,
+    changeValue: PropTypes.func,
+  }
+
   handleTags(tag, checked){
     if(checked) {
       console.log('Adding tag', tag);
-      // TODO - use action dispatcher from props
+      this.props.addTag(tag);
     } else {
       console.log('Removing tag', tag);
-      // TODO - use action dispatcher from props
+      this.props.removeTag(tag);
     }
   }
 
   handleDuration(type, value){
     console.log('Changing duration', type, value);
-    // TODO - use action dispatcher from props
+    this.props.filters.duration[type] = value;
+    if(value <= 14)
+      this.props.changeValue(this.props.filters.duration);
+    console.log(this.props);
   }
 
   handleSearch(phrase){
@@ -40,7 +51,7 @@ class TripListOptions extends React.Component {
             <div className={styles.filter}>
               <label>
                 Duration from:
-                <input className={`${styles.input} ${styles.number}`} type='number' value={filters.duration.from} min='1' max='14' onChange={event => this.handleDuration('from', event.currentTarget.value)} />
+                <input className={`${styles.input} ${styles.number}`} type='number' value={filters.duration.from} min='1' max='14' onChange={event => this.handleDuration('from', event.currentTarget.value)} onSubmit={event => this.handleDuration('from', event.currentTarget.value)} />
               </label>
               <label>
                 to:
