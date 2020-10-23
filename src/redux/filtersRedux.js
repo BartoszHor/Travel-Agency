@@ -34,7 +34,6 @@ export default function reducer(statePart = [], action = {}) {
         tags: [...statePart.tags, action.payload],
       };
     case CHANGE_VALUE:{
-      console.log(action.payload.from, action.payload.to);
       return {
         ...statePart,
         duration: action.payload,

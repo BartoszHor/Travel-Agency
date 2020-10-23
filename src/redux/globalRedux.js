@@ -17,6 +17,7 @@ export const setMultipleStates = payload => ({ payload, type: SET_MULTIPLE_STATE
 export default function reducer(state = [], action = {}) {
   switch (action.type) {
     case SET_MULTIPLE_STATES: {
+
       return {
         ...state,
         ...action.payload,

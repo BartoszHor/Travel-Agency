@@ -24,11 +24,8 @@ class TripListOptions extends React.Component {
   }
 
   handleDuration(type, value){
-    console.log('Changing duration', type, value);
-    this.props.filters.duration[type] = value;
-    if(value <= 14)
-      this.props.changeValue(this.props.filters.duration);
-    console.log(this.props);
+    this.props.filters.duration[type] = parseInt(value);
+    this.props.changeValue(this.props.filters.duration);
   }
 
   handleSearch(phrase){
@@ -51,7 +48,7 @@ class TripListOptions extends React.Component {
             <div className={styles.filter}>
               <label>
                 Duration from:
-                <input className={`${styles.input} ${styles.number}`} type='number' value={filters.duration.from} min='1' max='14' onChange={event => this.handleDuration('from', event.currentTarget.value)} onSubmit={event => this.handleDuration('from', event.currentTarget.value)} />
+                <input className={`${styles.input} ${styles.number}`} type='number' value={filters.duration.from} min='1' max='14' onChange={event => this.handleDuration('from', event.currentTarget.value)}/>
               </label>
               <label>
                 to:
