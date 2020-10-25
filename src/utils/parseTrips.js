@@ -15,7 +15,6 @@ const parseTrips = (trips, setStates) => {
   };
 
   for(let trip of trips){
-
     /* add country to newState.countries */
     if(typeof(newState.countries[trip.country.code]) == 'undefined'){
       const countryDetails = countries.filter(item => item.alpha3Code == trip.country.code)[0] || {};

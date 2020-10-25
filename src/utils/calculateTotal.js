@@ -3,6 +3,7 @@ import {parseOptionPrice} from './parseOptionPrice';
 
 export const calculateTotal = (tripCost, options) => {
   let total = parseOptionPrice(tripCost).value;
+
   let multiplier = 0;
   for (let option of pricing) {
     const currentValue = options[option.id];
