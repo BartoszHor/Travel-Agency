@@ -14,11 +14,13 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
           <span>{days} days</span>
           <span>from {cost}</span>
         </div>
-        <div className={styles.tags}>
-          {tags.map(tag => (
-            <span className={styles.tag} key={tag.toString()}>{tag}</span>
-          ))}
-        </div>
+        {tags ?
+          <div className={styles.tags}>
+            {tags.map(tag => (
+              <span className={styles.tag} key={tag.toString()}>{tag}</span>
+            ))}
+          </div>
+          : null }
       </article>
     </Link>
   </Col>
@@ -26,12 +28,12 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
 
 TripSummary.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  image: PropTypes.string,
-  name: PropTypes.string,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   intro: PropTypes.string,
-  cost: PropTypes.string,
-  days: PropTypes.number,
-  tags: PropTypes.array,
+  cost: PropTypes.string.isRequired,
+  days: PropTypes.number.isRequired,
+  tags: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
 };
 
 export default TripSummary;

@@ -20,7 +20,7 @@ OrderOptionDate.propTypes = {
   limits: PropTypes.object,
   price: PropTypes.string,
   setOptionValue: PropTypes.func,
-  currentValue: PropTypes.ReactNode,
+  currentValue: PropTypes.node,
 };
 
 export default OrderOptionDate;
