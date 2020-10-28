@@ -34,6 +34,7 @@ export const calculateTotal = (tripCost, options) => {
         const price = parseOptionPrice(option.price);
         if (price.type == 'multiplier') {
           multiplier += price.value * currentValue;
+          console.log(currentValue);
         }
         else if (price.type == 'number') {
           total += price.value * currentValue;

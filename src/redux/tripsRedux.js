@@ -25,7 +25,6 @@ export const getTripById = ({trips}, tripId) => {
 
   const filteredTrip = filtered.filter(trip => trip.id == tripId);
 
-  console.log('filtering trips by tripId:', tripId, filtered);
   return filteredTrip.length ? filteredTrip[0] : {error: true};
 };
 
@@ -33,7 +32,6 @@ export const getTripsForCountry = ({trips}, countryCode) => {
   const filtered = trips;
   const filtredTrips = filtered.filter(trip => trip.country.code == countryCode);
 
-  console.log('filtering trips by countryCode:', countryCode, filtered);
   return filtredTrips.length ? filtredTrips : [{error: true}];
 };
 
