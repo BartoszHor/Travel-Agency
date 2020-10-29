@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import OrderOption from'./OrderOption';
+import DatePicker from 'react-datepicker';
 
 
 describe('Component OrderOption', () => {
@@ -35,7 +36,7 @@ const mockProps = {
   id: 'abc',
   name: 'Lorem ipsum dolor',
   values: [
-    {id: 'abc', icon: 'h-square', name: 'Lorem A', price: 0},
+    {id: 'abd', icon: 'h-square', name: 'Lorem A', price: 0},
     {id: 'abc', icon: 'h-square', name: 'Lorem X', price: 10},
   ],
   required: false,
@@ -57,7 +58,7 @@ const mockPropsForType = {
 };
 
 const testValue = mockProps.values[1].id;
-//const testValueNumber = 3;
+const testValueNumber = 2;
 
 for(let option in optionTypes){
   describe(`Component OrderOption with type=${option}`, () => {
@@ -112,7 +113,7 @@ for(let option in optionTypes){
       }
       case 'icons': {
         /* tests for icons */
-        it('contains icon components', () => {
+        it('contains icon components and runs actions', () => {
           const icons = renderedSubcomponent.find('Icon');
           expect(icons.length).toBe(mockProps.values.length);
           const iconName = renderedSubcomponent.find('Icon').at(1).prop('name');
@@ -120,6 +121,69 @@ for(let option in optionTypes){
           renderedSubcomponent.find('.icon > div').last().simulate('click');
           expect(mockSetOrderOption).toBeCalledTimes(1);
           expect(mockSetOrderOption).toBeCalledWith({[mockProps.id]: testValue});
+        });
+        break;
+      }
+      case 'checkboxes': {
+        /* tests for checkboxes */
+        it('has inputs with type checbox and has wrapping div with class checkboxes', () => {
+          const wrapper = renderedSubcomponent.find('.checkboxes');
+          expect(wrapper.length).toBe(1);
+
+          const inputs = renderedSubcomponent.find('input[type="checkbox"]');
+          expect(inputs.length).toBe(mockProps.values.length);
+          expect(inputs.at(1).prop('checked')).not.toBe(false);
+
+          const input = renderedSubcomponent.find(`input[value="${testValue}"]`);
+          input.simulate('change', {currentTarget: {checked: true}});
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({[mockProps.id]: [mockProps.currentValue, testValue]});
+        });
+        break;
+      }
+      case 'number': {
+        /* tests for checkboxes */
+        it('has input and reacts onChange', () => {
+          const input = renderedSubcomponent.find('input');
+          expect(input.length).toBe(1);
+          input.simulate('change', {currentTarget: {value: testValueNumber }});
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({[mockProps.id]: testValueNumber});
+
+          const limitMin = renderedSubcomponent.find('input').prop('min');
+          const limitMax = renderedSubcomponent.find('input').prop('max');
+          expect(limitMin).toEqual(mockProps.limits.min);
+          expect(limitMax).toEqual(mockProps.limits.max);
+
+        });
+        break;
+      }
+      case 'text': {
+        /* tests for checkboxes */
+        it('has input and reacts onChange', () => {
+          const input = renderedSubcomponent.find('input');
+          expect(input.length).toBe(1);
+
+          const valueProp = renderedSubcomponent.find('input').prop('value');
+          expect(valueProp).toEqual(mockProps.currentValue);
+
+          input.simulate('change', {currentTarget: {value: testValue }});
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({[mockProps.id]: testValue});
+
+        });
+        break;
+      }
+      case 'date': {
+        /* tests for checkboxes */
+        it('has DatePicker and reacts onChange', () => {
+          const datePicker = renderedSubcomponent.find(DatePicker);
+          expect(datePicker.length).toBe(1);
+
+          datePicker.simulate('select', testValue);
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({[mockProps.id]: testValue});
+
         });
         break;
       }
