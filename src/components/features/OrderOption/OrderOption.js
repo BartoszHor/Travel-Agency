@@ -23,15 +23,12 @@ const OrderOption = ({name, type, id, setOrderOption, ...otherProps}) => {
   } else {
     return (
       <div className={styles.component}>
-        <h3 className={styles.title}> {name} </h3>
+        <h3 className={styles.title}>{name}</h3>
         <OptionComponent {...otherProps} setOptionValue={value => setOrderOption({[id]: value})}/>
       </div>
     );
   }
 };
-
-
-
 
 
 export default OrderOption;
