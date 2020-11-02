@@ -41,13 +41,12 @@ const sendOrder = (options, tripCost, country) => {
 
   fetch(url, fetchOptions)
     .then(function(response){
+      console.log(response);
       return response.json();
     }).then(function(parsedResponse){
       console.log('parsedResponse', parsedResponse);
     });
 };
-
-
 
 const OrderFrom = ({options, tripCost, setOrderOption, country}) => (
   <Row>
