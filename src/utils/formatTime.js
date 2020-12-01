@@ -5,7 +5,7 @@ export const formatTime = (arg) => {
     return null;
   } else if(arg < 0) {
     return null;
-  } else if(arg) {
+  } else if(typeof arg == 'number' && !isNaN(arg)) {
     let output;
     let seconds = arg % 60;
     let minutes = Math.floor(parseInt((arg/60)%60));
@@ -29,16 +29,3 @@ export const formatTime = (arg) => {
     }
   }
 };
-
-/*
-if(arg > 3600) {
-               let hours = Math.floor(parseInt((arg/3600)%60))
-               if(hours < 10) {
-                   hours = '0' + hours
-                   return hours + minutes + output
-               } else {
-                   output = hours + minutes + output
-                   return output
-               }
-           }
-           */
